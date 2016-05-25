@@ -41,6 +41,8 @@
 #   16. OTHER WAYS TO OPEN A FILE IN VI
 #   17. BOOKMARKS
 #   18. SEARCHING AND REPLACING
+#   19. REGULAR EXPRESSIONS
+#   20. COMMAND MODE
 
 #=====================================================================================================================================================================================
 
@@ -476,11 +478,16 @@
 #  ------------------------------------
 # 
 
-# vi +n filename    open file and move to specific line number n
-# vi + filename     open file and move to last line
-# vi +/text         open file and move to first occurrence of text
-# vi -R filename    open file in read-only mode
-# vi -r filename    recover a file from a crash and then remove the .swp file
+# vi +n filename            open file and move to specific line number n
+# vi + filename             open file and move to last line
+# vi +/text                 open file and move to first occurrence of text
+# vi -R filename            open file in read-only mode
+# vi -r filename            recover a file from a crash and then remove the .swp file
+# vim -b filename           open file in binary mode
+# vim -c command filename   execute vi command after vim starts
+# vim -d file1 file2        perform diff like command on 2 or more files
+# vim -o file1, file2       opens the files in seperate windows - navigate with CTRL-ww
+# vim -O file1, file2       opens the files in seperate windows, but in vertical - navigate with CTRL-ww
 
 #=====================================================================================================================================================================================
 
@@ -510,5 +517,63 @@
 # :1,5s/word/other/g    replace word with other on all occurrences on the lines 1-5
 
 # :%s/word/other/g      replace word with other globally
+# :%s/word/other/gc     replace word with other globally but have to confirm before making change
 
+# :%g/string/command    Search for a string and do a command on all of that string
+
+#=====================================================================================================================================================================================
+
+#
+#  ------------------------
+#  19. REGULAR EXPRESSIONS
+#  ------------------------
+# 
+
+# .     matches any single character including spaces and not newline
+# *     matches a range of zero or more characters of the same character that precedes it
+# .*    matches any character any number of times except newlines
+# ^     1. when used at start of pattern, it matches the occurrence of this pattern at the start of the line
+#       2. when used alone it matches the literal ^
+# $     1. when used at the end of the pattern, it matches the occurrence of this pattern at the end of the line
+#       2. when used alone it matches the literal $
+# \     excape character - it makes the following character be treated literally instead of a metacharacter
+
+# []    characters inside square brackets are matched -> [ab2] match a, b or 2. [a-z] will match the range a-z
+#       escape characters not needed except for hyphens
+#       ^ negates the range -> [^0-9] matches numbers not in the range 0-9
+
+# /\<pattern\>  matches only pattern - handy if you are looking for whole words
+# /\<pattern    matches pattern only when it is at the start of the word
+# /pattern\>    matches pattern only when it is at the end of the word
+
+#=====================================================================================================================================================================================
+
+#
+#  -----------------
+#  20. COMMAND MODE
+#  -----------------
+# 
+
+# :set Used to customise appearence and behaviour of editor while working
+# it has 2 types of usage
+#   1. Toggle - when you want to turn an option on/off - format is :set option to turn on and :set nooption to turn off
+#   2. Assign - when you want to set a specific value of an option 
+# To view all set options that vi is currently using, use ':set all' 
+# To view only the options youve changed use ':set'
+
+# Save changes as default to .vimrc/.exrc file
+
+# :!            is used to run UNIX commands - :!date displays date
+# :r !date      used to append UNIX command response to file
+# :r filename   insert contents of another file to current file
+
+# :1,9!cat > newfile.txt    cut lines 1-9 and save in a file newfile.txt
+
+# ab                    abbreviation
+# :ab thats that's      autocorrect thats to that's
+# :unab thats           turn off abbreviation for word
+
+# :map          create shortcuts for commands
+# :map d dw     create shortcut from dw to d
+# :unmap d      disable shortcut
 #=====================================================================================================================================================================================
